@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TradeHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-900 text-2xl">←</a>
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            TH
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-900">TradeHub</h1>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-6">
+                    <a href="index.html" class="text-gray-700 hover:text-gray-900 font-medium">Browse</a>
+                    <a href="dashbord.html" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        <span>📦</span>
+                        <span>My Orders</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Title -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Secure Checkout</h1>
+            <p class="text-gray-600">Complete your order with M-Pesa. Fast, secure, and trusted by Kenyan merchants.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- LEFT: Order Summary -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Order Summary</h2>
+                    
+                    <!-- Order Items -->
+                    <div id="order-items" class="space-y-4 mb-6 pb-6 border-b border-gray-200">
+                        <!-- Items injected here -->
+                    </div>
+
+                    <!-- Pricing Breakdown -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span id="subtotal-display" class="text-gray-900 font-medium">KES 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Shipping & Freight</span>
+                            <span id="shipping-display" class="text-gray-900 font-medium">KES 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Taxes & Duties</span>
+                            <span id="taxes-display" class="text-gray-900 font-medium">KES 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Platform Fee</span>
+                            <span id="fee-display" class="text-gray-900 font-medium">KES 0</span>
+                        </div>
+                        <div class="flex justify-between pt-3 border-t border-gray-200">
+                            <span class="font-bold text-gray-900">Total Amount Due</span>
+                            <span id="total-display" class="text-2xl font-bold text-green-600">KES 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-blue-900 mb-2">🔒 Secure Payment</h3>
+                            <p class="text-sm text-blue-800">All payments are processed securely through M-Pesa. Your financial details are never stored on our servers.</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23E63946' width='100' height='60' rx='4'/%3E%3Ctext x='50' y='35' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EM-PESA%3C/text%3E%3C/svg%3E" alt="M-Pesa" class="h-12 bg-white px-2 py-1 rounded">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%2300A651' width='100' height='60' rx='4'/%3E%3Ctext x='50' y='40' font-size='20' font-weight='bold' fill='white' text-anchor='middle'%3ESafaricom%3C/text%3E%3C/svg%3E" alt="Safaricom" class="h-12 bg-white px-2 py-1 rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Payment Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">M-Pesa Payment</h2>
+
+                    <form id="payment-form">
+                        <!-- Phone Number Input -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">
+                                M-Pesa Phone Number
+                            </label>
+                            <div class="flex gap-2">
+                                <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 font-medium">
+                                    +254
+                                </span>
+                                <input 
+                                    type="tel" 
+                                    id="phone-input" 
+                                    placeholder="712345678"
+                                    pattern="[0-9]{9}"
+                                    maxlength="9"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                                    required
+                                >
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">Format: 7XX XXX XXX (9 digits after country code)</p>
+                        </div>
+
+                        <!-- Terms & Conditions -->
+                        <div class="mb-6">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    id="terms-checkbox" 
+                                    class="mt-1 w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
+                                    required
+                                >
+                                <span class="text-xs text-gray-600">
+                                    I agree to TradeHub's 
+                                    <a href="#" class="text-blue-600 hover:underline">Terms & Conditions</a>
+                                    and confirm this is a legitimate business transaction.
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Pay Button -->
+                        <button 
+                            type="submit" 
+                            id="pay-button" 
+                            class="pay-button w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-4 rounded-lg transition text-lg"
+                        >
+                            💰 Pay KES <span id="pay-amount">0</span>
+                        </button>
+
+                        <p class="text-xs text-gray-600 text-center mt-3">
+                            A prompt will appear on your phone. Enter your M-Pesa PIN to confirm.
+                        </p>
+                    </form>
+
+                    <!-- Payment Info Box -->
+                    <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <h3 class="font-semibold text-green-900 text-sm mb-2">📱 How it works:</h3>
+                        <ol class="text-xs text-green-800 space-y-1">
+                            <li>1. Enter your M-Pesa phone number</li>
+                            <li>2. Click "Pay" button</li>
+                            <li>3. Enter your M-Pesa PIN when prompted</li>
+                            <li>4. Order confirmed instantly</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Payment Processing Overlay -->
+    <div id="payment-overlay" class="payment-overlay hidden">
+        <div class="payment-overlay-content">
+            <div class="loader-large mb-6"></div>
+            <h2 class="text-xl font-bold text-white mb-2">Processing Payment</h2>
+            <p class="text-white text-center mb-4">Waiting for M-Pesa confirmation...</p>
+            <div class="text-center text-white text-sm">
+                <p id="countdown-timer">This may take up to 30 seconds</p>
+            </div>
+            <button id="cancel-payment-btn" class="mt-6 w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium">
+                Cancel Payment
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-16 py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 TradeHub. All rights reserved. | Secure Payment Processing</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

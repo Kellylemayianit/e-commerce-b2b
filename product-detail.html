@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - TradeHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-900 text-2xl">←</a>
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                            TH
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-900">TradeHub</h1>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-6">
+                    <a href="index.html" class="text-gray-700 hover:text-gray-900 font-medium">Browse</a>
+                    <a href="dashbord.html" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                        <span>📦</span>
+                        <span>My Orders</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Product Loading State -->
+        <div id="loading-state" class="flex justify-center items-center py-20">
+            <div class="text-center">
+                <div class="loader mx-auto mb-4"></div>
+                <p class="text-gray-600 font-medium">Loading product details...</p>
+            </div>
+        </div>
+
+        <!-- Product Detail Container (hidden initially) -->
+        <div id="product-detail-container" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- LEFT: Media Gallery -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                        <!-- Main Image Display -->
+                        <div class="relative bg-gray-100">
+                            <img 
+                                id="main-image" 
+                                src="" 
+                                alt="Product" 
+                                class="w-full h-96 object-cover"
+                            >
+                            <div id="trust-badge" class="absolute top-4 left-4 bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                ✓ Verified Supplier
+                            </div>
+                            <div id="qc-badge" class="absolute top-4 right-4 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                ✓ QC Passed
+                            </div>
+                        </div>
+
+                        <!-- Thumbnail Gallery -->
+                        <div id="thumbnail-gallery" class="flex gap-2 p-4 bg-gray-50 overflow-x-auto">
+                            <!-- Thumbnails injected here -->
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="p-6 border-t border-gray-200">
+                            <h2 class="text-sm font-semibold text-gray-900 mb-2">Product Details</h2>
+                            <p id="product-description" class="text-sm text-gray-600 line-clamp-4"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Pricing & Quote Section -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
+                        
+                        <!-- Product Header -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <h1 id="product-name" class="text-lg font-bold text-gray-900 mb-2"></h1>
+                            <p id="supplier-name" class="text-sm text-gray-600 mb-3">By <span class="font-semibold"></span></p>
+                            <p id="sku-display" class="text-xs text-gray-500">SKU: <span class="font-mono"></span></p>
+                        </div>
+
+                        <!-- Final Price Display -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <p class="text-xs text-gray-600 font-semibold mb-2">FULLY LANDED PRICE</p>
+                            <p id="final-price-display" class="price-badge text-3xl mb-2">KES 0</p>
+                            <p class="text-xs text-gray-500">Per unit • Including all taxes & freight</p>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="mb-6 pb-6 border-b border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-900 mb-3">Quantity (Units)</label>
+                            <div class="flex gap-2 mb-2">
+                                <input 
+                                    type="number" 
+                                    id="quantity-input" 
+                                    value="1" 
+                                    min="1" 
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <button id="qty-decrease" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-semibold">−</button>
+                                <button id="qty-increase" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-semibold">+</button>
+                            </div>
+                            <p id="moq-warning" class="text-xs text-orange-600 font-semibold hidden">⚠ Minimum order: <span id="moq-value">0</span> units</p>
+                        </div>
+
+                        <!-- Total Price -->
+                        <div class="mb-6 pb-6 border-b border-gray-200 bg-blue-50 p-4 rounded-lg">
+                            <p class="text-xs text-gray-600 font-semibold mb-1">TOTAL FOR ORDER</p>
+                            <p id="total-order-price" class="text-2xl font-bold text-blue-600">KES 0</p>
+                            <p class="text-xs text-gray-600 mt-2"><span id="qty-display">1</span> units × Final Price</p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-3 mb-4">
+                            <button id="download-quote-btn" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2">
+                                📄 Download Quote
+                            </button>
+                            <button id="request-sample-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 px-4 py-3 rounded-lg font-semibold transition">
+                                📦 Request Sample
+                            </button>
+                        </div>
+                        <button id="contact-supplier-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-semibold transition">
+                            💬 Contact Supplier
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Breakdown Section -->
+            <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-bold text-gray-900 mb-4">Price Breakdown</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="border-b-2 border-gray-300">
+                            <tr class="text-left">
+                                <th class="pb-3 font-semibold text-gray-900">Component</th>
+                                <th class="pb-3 font-semibold text-gray-900 text-right">Amount (KES)</th>
+                                <th class="pb-3 font-semibold text-gray-900 text-right">% of Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="price-breakdown-table">
+                            <!-- Price breakdown rows injected here -->
+                        </tbody>
+                        <tfoot class="border-t-2 border-gray-300">
+                            <tr class="font-bold text-gray-900">
+                                <td class="pt-3">FULLY LANDED PRICE</td>
+                                <td id="breakdown-total" class="pt-3 text-right text-green-600">KES 0</td>
+                                <td class="pt-3 text-right">100%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-gray-700">
+                    <p class="font-semibold text-blue-900 mb-2">💡 Price Transparency</p>
+                    <p>This price includes all costs: supplier cost, international freight, Kenyan import duty, VAT, and platform fees. No hidden charges.</p>
+                </div>
+            </div>
+
+            <!-- Terms Section -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <p class="text-2xl font-bold text-gray-900 mb-2" id="payment-terms">30 Days</p>
+                    <p class="text-xs text-gray-600">Payment Terms</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <p class="text-2xl font-bold text-gray-900 mb-2" id="delivery-time">7-14 Days</p>
+                    <p class="text-xs text-gray-600">Delivery Time</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                    <p class="text-2xl font-bold text-gray-900 mb-2" id="warranty-period">6 Months</p>
+                    <p class="text-xs text-gray-600">Warranty</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="hidden text-center py-20">
+            <p class="text-red-600 text-lg font-semibold mb-4">⚠ Failed to load product details</p>
+            <a href="/" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                ← Back to Marketplace
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-16 py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 TradeHub. All rights reserved. | Powered by Smart Pricing Engine</p>
+        </div>
+    </footer>
+
+    <!-- Hidden form for quote download -->
+    <form id="quote-form" method="POST" style="display: none;"></form>
+
+    <script src="script.js"></script>
+</body>
+</html>

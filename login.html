@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeHub - Partner Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-800 to-green-900 min-h-screen flex items-center justify-center p-4">
+    
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <div class="w-14 h-14 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                    <span class="text-2xl font-bold text-blue-600">TH</span>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-white">TradeHub</h1>
+                    <p class="text-blue-100 text-sm">Partner Portal</p>
+                </div>
+            </div>
+            <p class="text-blue-100">Kenya-China Wholesale Trade Platform</p>
+            <p class="text-blue-200 text-xs mt-2">🔒 Secure Encrypted Portal • B2B Only</p>
+        </div>
+
+        <!-- Auth Card -->
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-gray-200">
+                <button 
+                    id="login-tab" 
+                    class="auth-tab active flex-1 py-4 px-4 font-semibold text-gray-900 border-b-2 border-blue-600 transition"
+                >
+                    🔐 Login
+                </button>
+                <button 
+                    id="register-tab" 
+                    class="auth-tab flex-1 py-4 px-4 font-semibold text-gray-600 border-b-2 border-transparent hover:text-gray-900 transition"
+                >
+                    ✍️ Register
+                </button>
+            </div>
+
+            <!-- Form Container -->
+            <div class="p-8">
+                <!-- Login Form -->
+                <form id="login-form" class="space-y-6 auth-form active">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            📱 Phone Number
+                        </label>
+                        <div class="flex gap-2">
+                            <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 font-medium">
+                                +254
+                            </span>
+                            <input 
+                                type="tel" 
+                                id="login-phone" 
+                                placeholder="712345678"
+                                pattern="[0-9]{9}"
+                                maxlength="9"
+                                class="login-phone-input flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            >
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1">9 digits • Used for M-Pesa payments</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            🔑 KRA PIN
+                        </label>
+                        <input 
+                            type="password" 
+                            id="login-pin" 
+                            placeholder="A1234567B"
+                            pattern="[A-Z0-9]{9}"
+                            maxlength="9"
+                            class="login-pin-input px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                            required
+                        >
+                        <p class="text-xs text-gray-600 mt-1">9 characters • Format: A1234567B</p>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        id="login-submit" 
+                        class="auth-submit-btn w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        🔓 Login to Portal
+                    </button>
+
+                    <p id="login-error" class="text-red-600 text-sm font-semibold hidden flex items-center gap-2">
+                        <span>⚠</span>
+                        <span id="login-error-text"></span>
+                    </p>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="space-y-6 auth-form hidden">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            🏢 Business Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="register-business" 
+                            placeholder="Your Trading Company Ltd"
+                            class="register-input px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                            required
+                        >
+                        <p class="text-xs text-gray-600 mt-1">Official registered business name</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            📱 Phone Number
+                        </label>
+                        <div class="flex gap-2">
+                            <span class="inline-flex items-center px-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-600 font-medium">
+                                +254
+                            </span>
+                            <input 
+                                type="tel" 
+                                id="register-phone" 
+                                placeholder="712345678"
+                                pattern="[0-9]{9}"
+                                maxlength="9"
+                                class="register-phone-input flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            >
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1">Will be linked to your M-Pesa account</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">
+                            🔑 KRA PIN
+                        </label>
+                        <input 
+                            type="text" 
+                            id="register-pin" 
+                            placeholder="A1234567B"
+                            pattern="[A-Z0-9]{9}"
+                            maxlength="9"
+                            class="register-pin-input px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                            required
+                        >
+                        <p class="text-xs text-gray-600 mt-1">Verifies your business registration</p>
+                    </div>
+
+                    <div>
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input 
+                                type="checkbox" 
+                                id="register-terms" 
+                                class="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                required
+                            >
+                            <span class="text-xs text-gray-600">
+                                I confirm this is a legitimate B2B business and agree to TradeHub's 
+                                <a href="#" class="text-blue-600 hover:underline">Terms & Conditions</a>
+                            </span>
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        id="register-submit" 
+                        class="auth-submit-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        ✓ Create Account
+                    </button>
+
+                    <p id="register-error" class="text-red-600 text-sm font-semibold hidden flex items-center gap-2">
+                        <span>⚠</span>
+                        <span id="register-error-text"></span>
+                    </p>
+                </form>
+
+                <!-- Security Info -->
+                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p class="text-xs text-blue-900 flex items-start gap-2">
+                        <span>🛡️</span>
+                        <span><strong>Privacy Protected:</strong> Your KRA PIN is encrypted and only used for B2B verification. Never shared with suppliers.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-blue-100 text-xs">
+            <p>© 2025 TradeHub. B2B Wholesale Platform for Kenyan Merchants</p>
+            <p class="mt-2">Need help? <a href="#" class="text-white hover:underline">Contact Support</a></p>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="auth-overlay" class="auth-overlay hidden">
+        <div class="auth-overlay-content">
+            <div class="loader-auth mb-4"></div>
+            <h2 class="text-lg font-bold text-gray-900 mb-2">Verifying Credentials</h2>
+            <p class="text-gray-600 text-sm">Connecting to our secure portal...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
